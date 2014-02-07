@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="jee-dst-ter" transaction-type="JTA">
+<!-- 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
+ 		<jta-data-source>jdbc/__DocumentSearchToolResource</jta-data-source>
+		<class>com.model.Article</class>
+		<class>com.model.Reference</class>
+		<class>com.model.User</class>
+<!-- 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="eclipselink.composite-unit.member" value="false"/>
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.MySQLPlatform"/>
+        </properties> -->
+	</persistence-unit>
+</persistence>
