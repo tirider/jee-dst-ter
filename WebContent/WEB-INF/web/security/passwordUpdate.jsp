@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html class="js csstransforms no-csstransforms3d csstransitions desktop js" lang="en">
 	<head>
-		<title>Security - Document Recommendation Tool</title>
+		<title>Security - Document Search Tool</title>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="shortcut icon" href="<core:url value="/favicon.ico" />" type="image/x-icon">		
@@ -114,10 +114,6 @@
 												<br/>
 												<h3 style="margin-bottom: 1px;">Your current email</h3>
 												<h5>${session.email}</h5>
-											</div>
-											<div class="vcard">
-												<h3 style="margin-bottom: 1px;">Your current group</h3>
-<%-- 												<h5>${session.groupid}</h5> --%>
 											</div>
 										</div>
 									</div>

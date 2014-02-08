@@ -1,6 +1,12 @@
 package com.global;
 
 import java.io.File;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+import java.util.UUID;
 
 public class Global
 {
@@ -42,5 +48,36 @@ public class Global
 		{
 			System.err.println("Error moving the from "+a.getPath()+" to "+b.getPath()+"...");
 		}		
+	}
+	
+	/**
+	 * ecryptToSha1
+	 * @param content
+	 * @return
+	 */
+	public static String ecryptToSha1(String content)
+	{
+		try 
+		{
+	        MessageDigest md = MessageDigest.getInstance("SHA1");
+	        
+	        md.update(content.getBytes());
+	        
+	        return new BigInteger( 1, md.digest() ).toString(16);
+	    }
+	    catch (NoSuchAlgorithmException e) { }
+		
+		return content;
+	}	
+	
+	/**
+	 * genUniqueFileName
+	 * @param extention
+	 * @return
+	 * @throws IOException
+	 */
+	public static String genUniqueFileName(String extention) throws IOException
+	{
+		return UUID.randomUUID().toString()+new Date().getTime()+"."+extention;
 	}	
 }

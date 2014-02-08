@@ -35,7 +35,7 @@ public class UserDAO
     	EntityManager em  = emf.createEntityManager();
 
     	// PREPARING QUERY
-    	Query query = em.createQuery("select u from User u where u.id=?1");
+    	Query query = em.createQuery("FROM User u WHERE u.id=?1");
     	query.setParameter(1, id);
     	
     	// RETIEVING RESULTS
@@ -59,7 +59,7 @@ public class UserDAO
     	EntityManager em  = emf.createEntityManager();
     	
     	// PREPARING QUERY
-    	Query query = em.createQuery("SELECT u FROM User u WHERE u.email=?1 and u.password=?2");
+    	Query query = em.createQuery("FROM User u WHERE u.email=?1 and u.password=?2");
     	query.setParameter(1, email.toLowerCase());
     	query.setParameter(2, password);
     	
@@ -88,7 +88,7 @@ public class UserDAO
     	EntityManager em  = emf.createEntityManager();
 
     	// PREPARING QUERY
-    	Query query = em.createQuery("select u from User u where u.email=?1");
+    	Query query = em.createQuery("FROM User u WHERE u.email=?1");
     	query.setParameter(1, email.toLowerCase());
     	
     	// GETTING RESULTS
@@ -105,11 +105,27 @@ public class UserDAO
 		return user;
 	}
 
+	public boolean updatePasswordById(String email, String newpassword)
+	{
+		// ENTITY MANAGER FACTORY
+    	EntityManager em  		= emf.createEntityManager();
+		
+    	// PREPARING QUERY
+    	Query query = em.createQuery("UPDATE User u SET u.password=?1 WHERE u.email=?2");
+    	query.setParameter(1, newpassword);
+    	query.setParameter(2, email.toLowerCase());
+    	
+    	int records = query.executeUpdate();
+    	
+    	em.close();
+    	
+		return (records > 0);
+	}
+	
 //	public boolean create(User user) 
 //	
 //	public boolean delete(String id) 
 //	
-//	public boolean updatePasswordById(String id, String newpassword) 
 //	
 //	public boolean updatePasswordByEmail(String email, String newpassword)
 //	

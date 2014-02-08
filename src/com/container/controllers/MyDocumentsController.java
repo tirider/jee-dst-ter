@@ -3,6 +3,7 @@ package com.container.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.container.models.beans.Reference;
-import com.container.models.dao.DAOInterface;
-import com.container.models.dao.ReferenceDAO;
-import com.container.models.dao.ReferenceDAOImpl;
+import com.container.filters.BloomFilter;
+import com.dao.ReferenceDAO;
+import com.dao.UserDAO;
+import com.model.Reference;
 import com.model.User;
 
 /**
@@ -23,35 +24,31 @@ import com.model.User;
 public class MyDocumentsController extends HttpServlet 
 {
 	// ATTRIBUTES DE LA REQUETE
-	private static final String  ATTR_DAO = "dao";
-	private static final String  ATTR_SESSION  = "session";
-	private static final String  ATTR_PAGE     = "page";
-	private static final String  ATTR_LIST     = "documents";
-	private static final String  ATTR_NO_PAGES = "noOfPages";
-	private static final String  ATTR_CURRENT_PAGE = "currentPage";
+	private static final String  ATTR_SESSION  		= "session";
+	private static final String  ATTR_PAGE     		= "page";
+	private static final String  ATTR_LIST     		= "documents";
+	private static final String  ATTR_NO_PAGES 		= "noOfPages";
+	private static final String  ATTR_CURRENT_PAGE	= "currentPage";
 	private static final String  ATTR_AFFECTED_ROWS = "affectedRows";
+	private static final String  ATTR_SESSION_USER_DOCS   = "bloomfilter";
 	
 	// VUES ASSOCIEES AU CONTROLLEUR
 	private static final String VIEW1  = "/WEB-INF/web/mydocuments/mydocuments.jsp";
 	private static final String VIEW3  = "/LoginService";
 	
-	// INTERFACE D'ACCES AUX DONNEES
-	private ReferenceDAO referenceDAO;
-
 	// DEFAULT SERIAL VERSION
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * @see HttpServlet#init()
+	 * INTERFACE D'ACCES AUX DONNEES USER
 	 */
-	public void init() throws ServletException
-	{
-		// RECUPERATION DES L'OBJETS QUI CONTIENT L'ACCES AUX DONNEES
-		DAOInterface dao  = (DAOInterface) getServletContext().getAttribute(ATTR_DAO);
-		
-		this.referenceDAO = new ReferenceDAOImpl(dao);
-	}
-	   
+	@EJB UserDAO userDAO;
+	
+	/**
+	 * INTERFACE D'ACCES AUX DONNEES REFERENCE
+	 */
+	@EJB ReferenceDAO referenceDAO;
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */  
@@ -66,21 +63,21 @@ public class MyDocumentsController extends HttpServlet
 			// PAR DEFAULT
 			int page = 1;
 			
+			// MAX DE DOCUMENT PAR PAGES
+			int maxRecordsPerPages = 10;
+						
 			// RECUPERATION DU NUMERO DE PAGE A AFFICHER
 			if(! (request.getParameter(ATTR_PAGE) == null))
 				page = Integer.parseInt(request.getParameter(ATTR_PAGE));
 			
-			// MAX DE DOCUMENT PAR PAGES
-			int maxRecordsPerPages = 10;
-			
 			// EXEC PAGINATION
-			//List<Reference> references = referenceDAO.findByUserId(user.getId(), ((page - 1) * maxRecordsPerPages), maxRecordsPerPages);
+			List<Reference> references = referenceDAO.findByUserId(user.getId(), ((page - 1) * maxRecordsPerPages), maxRecordsPerPages);
 			
-			int affectedRows  = referenceDAO.getAffectedRows();
+			int affectedRows  = ((BloomFilter) session.getAttribute(ATTR_SESSION_USER_DOCS)).getFilter().size();
 			int numberOfpages = (int) Math.ceil((float) affectedRows/maxRecordsPerPages);
 			
 			// SETTING UP ATTRs
-			//request.setAttribute(ATTR_LIST, references);
+			request.setAttribute(ATTR_LIST, references);
 	        request.setAttribute(ATTR_NO_PAGES, numberOfpages);
 	        request.setAttribute(ATTR_CURRENT_PAGE, page);
 	        request.setAttribute(ATTR_AFFECTED_ROWS, affectedRows);

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,20 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.container.filters.BloomFilter;
-import com.container.models.beans.User;
-import com.container.models.dao.ArticleDAO;
-import com.container.models.dao.ArticleDAOImpl;
-import com.container.models.dao.DAOInterface;
-import com.container.models.dao.ReferenceDAO;
-import com.container.models.dao.ReferenceDAOImpl;
 import com.container.models.indexer.FileSystemIndexer;
+import com.dao.ArticleDAO;
+import com.dao.ReferenceDAO;
+import com.model.User;
 
-/**  Servlet implementation class DeleteDocumentController **/
+/**
+ * Servlet implementation class DeleteDocumentController
+ */
 @WebServlet(name="DeleteDocumentController", urlPatterns="/DeleteDocumentAction")
 public class DeleteDocumentController extends HttpServlet 
 {
 	// ATTRIBUTES DE LA REQUETE
-	private static final String  ATTR_DAO                 = "dao";
 	private static final String  ATTR_DOCUMENTS_DIRECTORY = "documents-directory";
 	private static final String  ATTR_INDEX_DIRECTORY     = "index-directory";
 	private static final String  ATTR_SESSION             = "session";
@@ -34,10 +33,6 @@ public class DeleteDocumentController extends HttpServlet
 	// VUES ASSOCIEES AU CONTROLLEUR
 	private static final String VIEW1  = "/DocumentsInboxService";
 	
-	// INTERFACE D'ACCES AUX DONNEES
-	private ReferenceDAO referenceDAO;
-	private ArticleDAO   articleDAO;
-	
 	// HOLD FILE UPLOAD/INDEX/DOCUMENTS LOCATION
 	private String  documentsdirectory  = new String();
 	private String  indexdirectory      = new String();	
@@ -45,21 +40,27 @@ public class DeleteDocumentController extends HttpServlet
 	// DEFAULT SERIAL VERSION
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * INTERFACE D'ACCES AUX DONNEES USER
+	 */
+	@EJB ArticleDAO articleDAO;
+	
+	/**
+	 * INTERFACE D'ACCES AUX DONNEES REFERENCE
+	 */
+	@EJB ReferenceDAO referenceDAO;
+	
 	// POINT D'ENTRE AU SERVLET / LIKE A CONSTRUCTOR
 	public void init() throws ServletException
 	{
 		// RECUPERATION L'ADRESSE UO TROUVER OU STOCKER LES ATICLES+INDEX
 		this.documentsdirectory = this.getServletContext().getInitParameter(ATTR_DOCUMENTS_DIRECTORY);
 		this.indexdirectory = this.getServletContext().getInitParameter(ATTR_INDEX_DIRECTORY);
-		
-		// RECUPERATION DE L'OBJET QUI CONTIENT L'ACCES AUX DONNEES
-		DAOInterface dao  = (DAOInterface) getServletContext().getAttribute(ATTR_DAO);
-		
-		this.articleDAO   = new ArticleDAOImpl(dao);
-		this.referenceDAO = new ReferenceDAOImpl(dao);
 	}	
 
-	/** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) **/
+	/** 
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) 
+	**/
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		// RECUPERATION D'UNE INSTANCE DE LA SESSION
@@ -86,7 +87,7 @@ public class DeleteDocumentController extends HttpServlet
 				if(size == 1)
 				{
 					// SUPPRIMER LA REFERENCE DE LA TABLE ARTICLES
-					this.articleDAO.delete(docId);
+					articleDAO.delete(docId);
 					
 					// RE-CONSTRUCTION DU FICHIER
 					File documentpathname = new File(this.documentsdirectory+"/"+docId+".pdf");
@@ -100,20 +101,16 @@ public class DeleteDocumentController extends HttpServlet
 				}
 
 				// SUPPRIMER LA REF. DE LA TABLE
-				this.referenceDAO.delete(user.getId(), docId, docName);
+				referenceDAO.delete(user.getId(), docId, docName);
 				
 				// SUPPRIMER DE BLOOM FILTER
 				((BloomFilter) session.getAttribute(ATTR_SESSION_USER_DOCS)).deleteFromFilter(docId);
 				
 				// REDIRECTION VERS LA PAGE CORRSPONDANTE
 				this.getServletContext().getRequestDispatcher(VIEW1+"?service=paging&page="+page+"&lang=en").forward(request, response);							
-			}			
+			}		
+			else this.getServletContext().getRequestDispatcher(VIEW1+"?service=paging&page="+page+"&lang=en").forward(request, response);
 		}
-	}
-
-	/** @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response) **/
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		/* do something here */
+		else this.getServletContext().getRequestDispatcher("/").forward(request, response);
 	}
 }

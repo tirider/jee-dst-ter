@@ -36,7 +36,7 @@ public class ArticleDAO
     	EntityManager em  = emf.createEntityManager();
     	
     	// PREPARING QUERY
-    	Query query = em.createQuery("SELECT a FROM Article a WHERE a.id=?1");
+    	Query query = em.createQuery("FROM Article a WHERE a.id=?1");
     	query.setParameter(1, aid);
     	
     	// GETTING RESULTS
@@ -64,14 +64,28 @@ public class ArticleDAO
         
         em.close();
 	}
-	
+
+	public boolean delete(String id)
+	{
+    	EntityManager em = emf.createEntityManager();
+		
+    	// PREPARING QUERY
+    	Query query = em.createQuery("DELETE FROM Article a WHERE a.id=?1");
+    	query.setParameter(1, id);
+    	
+    	int records = query.executeUpdate();
+    	
+    	em.close();
+    	
+		return (records > 0);
+	}
 //  
 //	public Article find(String aid)
 //	
 //	public List<Article> findAll()
 //	
 //	
-//	public boolean delete(String id)	
+
 //	
 //	public boolean updateName(String id, String newname)	
 }

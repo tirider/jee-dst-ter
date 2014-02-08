@@ -27,7 +27,7 @@ public class ResearchController extends HttpServlet
 	private static final String ATTR_DOCUMENTS       	= "documents";
 	private static final String ATTR_MESSAGE         	= "message";
 	private static final String ATTR_SEARCHED_TEXT   	= "text";
-	private static final String  ATTR_SESSION  = "session";	
+	private static final String ATTR_SESSION  			= "session";	
 	private static final String ATTR_SESSION_USER_DOCS 	= "bloomfilter";	
 	
 	/**
