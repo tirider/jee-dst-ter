@@ -19,6 +19,7 @@ import com.container.models.textextractor.InterfaceArticleTextExtractor;
 import com.container.models.textextractor.PDFArticleTextExtractor;
 import com.dao.ArticleDAO;
 import com.dao.ReferenceDAO;
+import com.global.Global;
 import com.model.Article;
 import com.model.Reference;
 import com.model.User;
@@ -39,11 +40,12 @@ public class IndexationController extends HttpServlet
 	// VUES ASSOCIEES AU CONTROLLEUR
 	private static final String VIEW1  = "/UploadAction";
 	private static final String VIEW2  = "/WEB-INF/web/indexation/indexationMessage.jsp";
+	private static final String VIEW3 = "/LoginService";
 	
 	// HOLD FILE UPLOAD/INDEX/DOCUMENTS LOCATION
-	private String  uploadsdirectory    = new String();
-	private String  documentsdirectory  = new String();
-	private String  indexdirectory      = new String();	
+	private static String  TEMP_DIRECTORY    = new String();
+	private static String  CORPUS_DIRECTORY  = new String();
+	private static String  INDEX_DIRECTORY   = new String();	
 
 	// DEFAULT SERIAL VERSION
 	private static final long serialVersionUID = 1L;
@@ -64,14 +66,14 @@ public class IndexationController extends HttpServlet
 	public void init() throws ServletException
 	{
 		// RECUPERATION L'ADRESSE UO TROUVER OU STOCKER LES ATICLES+INDEX
-		this.uploadsdirectory   = this.getServletContext().getInitParameter(ATTR_UPLOADS_DIRECTORY);
-		this.documentsdirectory = this.getServletContext().getInitParameter(ATTR_DOCUMENTS_DIRECTORY);
-		this.indexdirectory     = this.getServletContext().getInitParameter(ATTR_INDEX_DIRECTORY);
+		TEMP_DIRECTORY   = this.getServletContext().getInitParameter(ATTR_UPLOADS_DIRECTORY);
+		CORPUS_DIRECTORY = this.getServletContext().getInitParameter(ATTR_DOCUMENTS_DIRECTORY);
+		INDEX_DIRECTORY  = this.getServletContext().getInitParameter(ATTR_INDEX_DIRECTORY);
 
 		// VERIFICATION DE L EXISTENCE DES REPERTOIRES
-		this.directoryCreator(this.uploadsdirectory);
-		this.directoryCreator(this.documentsdirectory);
-		this.directoryCreator(this.indexdirectory);
+		Global.createDirectory(TEMP_DIRECTORY);
+		Global.createDirectory(CORPUS_DIRECTORY);
+		Global.createDirectory(INDEX_DIRECTORY);
 	}
 	
 	/**
@@ -79,8 +81,18 @@ public class IndexationController extends HttpServlet
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-        // REDIRECTION VERS LA VU CORRESPONDANTE
-		this.getServletContext().getRequestDispatcher(VIEW1).forward(request, response);
+		// RECUPERATION DE L'IDENTIFIENT DE LA SESSION
+		HttpSession session = request.getSession();
+		User user  = (User) session.getAttribute(ATTR_SESSION);
+		
+		if(user != null)
+		{		
+			this.getServletContext().getRequestDispatcher(VIEW1).forward(request, response);
+		}
+		else
+		{
+			this.getServletContext().getRequestDispatcher(VIEW3).forward(request, response);
+		}
 	}
 	
 	/**
@@ -88,9 +100,8 @@ public class IndexationController extends HttpServlet
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{	
-		if(new File(this.uploadsdirectory).exists() || 
-		   new File(this.uploadsdirectory).exists() || 
-		   new File(this.uploadsdirectory).exists() )
+		if(new File(TEMP_DIRECTORY).exists() || new File(CORPUS_DIRECTORY).exists() || 
+		   new File(INDEX_DIRECTORY).exists() )
 		{	
 			// RECUPERATION DE L'IDENTIFIENT DE LA SESSION
 			HttpSession session = request.getSession();
@@ -116,8 +127,8 @@ public class IndexationController extends HttpServlet
 			if(user != null)
 			{
 				// RE-CONSTRUCTION DES FICHIERS
-				File tempfilepathname     = new File(this.uploadsdirectory+"/"+tempfilename);
-				File lastfilepathname     = new File(this.documentsdirectory+"/"+generatedfilename);
+				File tempfilepathname     = new File(TEMP_DIRECTORY+"/"+tempfilename);
+				File lastfilepathname     = new File(CORPUS_DIRECTORY+"/"+generatedfilename);
 				
 				// VERIFIER SI L ARTICLE A INDEXER EXISTE DANS LA BD
 				boolean exists = articleDAO.exists(filecode);
@@ -146,7 +157,7 @@ public class IndexationController extends HttpServlet
 						luceneDocument.setUrl(request.getContextPath()+"/documents/"+lastfilepathname.getName());
 						
 						// COMMITING INDEX
-						FileSystemIndexer fsi = new FileSystemIndexer(this.indexdirectory);
+						FileSystemIndexer fsi = new FileSystemIndexer(INDEX_DIRECTORY);
 						fsi.index(luceneDocument);
 					} 
 					catch (Exception e) 
@@ -171,7 +182,7 @@ public class IndexationController extends HttpServlet
 					((BloomFilter) session.getAttribute(ATTR_SESSION_USER_DOCS)).addToFilter(filecode);
 					
 					// DEPLACEMENT DU DOCUMENT VERS LE CORPUS
-					this.directoryMover(tempfilepathname, lastfilepathname);
+					Global.moveDirectory(tempfilepathname, lastfilepathname);
 				}
 				
 				// EXISTE OU NON LE DOCUMENT ON DOIT BIEN RAJOUTER LA REFERENCE
@@ -196,48 +207,5 @@ public class IndexationController extends HttpServlet
 				this.getServletContext().getRequestDispatcher(VIEW2).forward(request, response);				
 			}
 		}
-	}		
-	
-	/**
-	 * METHODE QUI GERE LA CREATION DE REPERTOIRES
-	 * @param directoryname
-	 */
-	private void directoryCreator(String directoryname)
-	{
-		if(! new File(directoryname).exists())
-		{
-			System.out.println("Creating "+directoryname+" directory...");
-			
-			try
-			{
-				// CREATION DU REPERTOIRE
-				new File(directoryname).mkdir();
-			}
-			catch(Exception e)
-			{
-				// REPPORTINF ERROR ON SERVER
-				System.out.println(this.getClass().getName()+".directoryCreator():\n"+e.getMessage());
-			}			
-		}
-	}
-	
-	/**
-	 * METHODE QUI GERE LE DEPLACEMENT D'UN REPERTOIRE VERS UN AUTRE
-	 * @param directoryname
-	 */	
-	private void directoryMover(File a, File b)
-	{
-		try
-		{
-			System.out.println("Moving from "+a.getPath()+" to "+b.getPath()+"...");
-			
-			// DEPLACE L ARTILE COURANT VERS LE CORPUS D ARTICLES
-			a.renameTo(b);
-		}
-		catch(Exception e)
-		{
-			// REPORTING ERROR ON SERVER
-			System.out.println(this.getClass().getName()+".directoryMover():\n"+e.getMessage());
-		}		
 	}
 }

@@ -13,5 +13,6 @@ public class IndexedLuceneDocument extends LuceneDocument
 	}
 
 	public float getScore() { return score; }
+	
 	public void setScore(float score) { this.score = score; }	
 }

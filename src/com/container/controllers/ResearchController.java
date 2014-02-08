@@ -1,6 +1,5 @@
 package com.container.controllers;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -14,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import com.container.filters.BloomFilter;
 import com.container.models.beans.IndexedLuceneDocument; 
 import com.container.models.searcher.FileSystemSearcher;
+import com.global.Global;
+import com.model.User;
 
 /**
  * Servlet implementation class ResearchController
@@ -26,12 +27,14 @@ public class ResearchController extends HttpServlet
 	private static final String ATTR_DOCUMENTS       	= "documents";
 	private static final String ATTR_MESSAGE         	= "message";
 	private static final String ATTR_SEARCHED_TEXT   	= "text";
+	private static final String  ATTR_SESSION  = "session";	
 	private static final String ATTR_SESSION_USER_DOCS 	= "bloomfilter";	
 	
 	/**
 	 * VUES ASSOCIEES AU CONTROLLEUR.
 	 */
 	private static final String VIEW1 = "/WEB-INF/web/search/search.jsp";
+	private static final String VIEW2 = "/LoginService";	
 	
 	/**
 	 * Index folder path holder.
@@ -52,7 +55,7 @@ public class ResearchController extends HttpServlet
 		INDEX_DIRECTORY = this.getServletContext().getInitParameter(ATTR_INDEX_DIRECTORY);	
 		
 		// VERIFIER L EXISTENCE DU REPERTOIRE
-		this.createDirectory(INDEX_DIRECTORY);
+		Global.createDirectory(INDEX_DIRECTORY);
 	}
 	
 	/**
@@ -60,8 +63,19 @@ public class ResearchController extends HttpServlet
 	 */  
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		// REDIRECTION VERS LA VU CORRESPONDANTE
-		this.getServletContext().getRequestDispatcher(VIEW1).forward(request, response);
+		// RECUPERATION DE L'IDENTIFIENT DE LA SESSION
+		HttpSession session = request.getSession();
+		User user  = (User) session.getAttribute(ATTR_SESSION);
+		
+		if(user != null)
+		{
+			// REDIRECTION VERS LA VU CORRESPONDANTE
+			this.getServletContext().getRequestDispatcher(VIEW1).forward(request, response);
+		}
+		else
+		{
+			this.getServletContext().getRequestDispatcher(VIEW2).forward(request, response);
+		}
 	}
 
 	/**
@@ -79,7 +93,7 @@ public class ResearchController extends HttpServlet
 		String query 	= request.getParameter(ATTR_SEARCHED_TEXT);
 		String message 	= new String();
 		
-		if(! query.trim().isEmpty())
+		if(!query.trim().isEmpty())
 		{
 			// PREPARING SEARCHER 
 			FileSystemSearcher fss = new FileSystemSearcher(INDEX_DIRECTORY);
@@ -121,27 +135,4 @@ public class ResearchController extends HttpServlet
 		// REDIRECTION VERS LA VUE CORRESPONDANTE
 		this.getServletContext().getRequestDispatcher(VIEW1).forward(request, response);
 	}
-	
-	/**
-	 * METHODE QUI GERE LA CREATION DE REPERTOIRES
-	 * @param directoryname
-	 */
-	private void createDirectory(String directoryname)
-	{
-		if(! new File(directoryname).exists())
-		{
-			System.out.println("Creating "+directoryname+" directory...");
-			
-			try
-			{
-				// CREATION DU REPERTOIRE
-				new File(directoryname).mkdir();
-			}
-			catch(Exception e)
-			{
-				// REPPORTINF ERROR ON SERVER
-				System.err.println(this.getClass().getName()+".directoryCreator():\n"+e.getMessage());
-			}			
-		}
-	}	
 }

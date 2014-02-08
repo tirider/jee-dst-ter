@@ -16,7 +16,9 @@ import com.container.models.dao.ReferenceDAO;
 import com.container.models.dao.ReferenceDAOImpl;
 import com.model.User;
 
-/** CONTROLLEUR DE PAGINATION DES DOCUMENTS **/
+/**
+ * Servlet implementation class MyDocumentsController
+ */
 @WebServlet(name="/DocumentsController", urlPatterns="/DocumentsInboxService")
 public class MyDocumentsController extends HttpServlet 
 {
@@ -31,7 +33,7 @@ public class MyDocumentsController extends HttpServlet
 	
 	// VUES ASSOCIEES AU CONTROLLEUR
 	private static final String VIEW1  = "/WEB-INF/web/mydocuments/mydocuments.jsp";
-	private static final String VIEW2  = "/WelcomeService";
+	private static final String VIEW3  = "/LoginService";
 	
 	// INTERFACE D'ACCES AUX DONNEES
 	private ReferenceDAO referenceDAO;
@@ -39,7 +41,9 @@ public class MyDocumentsController extends HttpServlet
 	// DEFAULT SERIAL VERSION
 	private static final long serialVersionUID = 1L;
 	
-	// POINT D'ENTRE AU SERVLET / LIKE A CONSTRUCTOR
+	/**
+	 * @see HttpServlet#init()
+	 */
 	public void init() throws ServletException
 	{
 		// RECUPERATION DES L'OBJETS QUI CONTIENT L'ACCES AUX DONNEES
@@ -48,7 +52,9 @@ public class MyDocumentsController extends HttpServlet
 		this.referenceDAO = new ReferenceDAOImpl(dao);
 	}
 	   
-	// HTTP GET REQUEST
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		// RECUPERATION DE L'IDENTIFIENT DE LA SESSION
@@ -82,12 +88,9 @@ public class MyDocumentsController extends HttpServlet
 			// REDIRECTION VERS LA VU CORRESPONDANTE
 			this.getServletContext().getRequestDispatcher(VIEW1).forward(request, response);
 		}
-	}
-
-	// HTTP POST REQUEST
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		// REDIRECTION VERS LA VU CORRESPONDANTE
-		this.getServletContext().getRequestDispatcher(VIEW2).forward(request, response);
+		else
+		{
+			this.getServletContext().getRequestDispatcher(VIEW3).forward(request, response);
+		}
 	}
 }
