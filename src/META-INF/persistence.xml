@@ -3,9 +3,9 @@
 	<persistence-unit name="jee-dst-ter" transaction-type="JTA">
 <!-- 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
  		<jta-data-source>jdbc/__DocumentSearchToolResource</jta-data-source>
-		<class>com.model.Article</class>
-		<class>com.model.Reference</class>
-		<class>com.model.User</class>
+		<class>com.dst.model.Article</class>
+		<class>com.dst.model.Reference</class>
+		<class>com.dst.model.User</class>
 <!-- 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="eclipselink.composite-unit.member" value="false"/>
