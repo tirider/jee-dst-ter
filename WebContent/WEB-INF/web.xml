@@ -3,9 +3,10 @@
   
   <display-name>Document Search Tool</display-name>
   
-  <welcome-file-list>
-    <welcome-file>/WEB-INF/outset/login/login.jsp</welcome-file>
-  </welcome-file-list>
+	<welcome-file-list>
+		<!-- comment this to activate Angularjs app -->
+    	<welcome-file>/WEB-INF/outset/login/login.jsp</welcome-file>
+  	</welcome-file-list> 
   
   <context-param>
     <description>Location to store temps uploaded files</description>
