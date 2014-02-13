@@ -25,4 +25,8 @@
     <param-value>/hdd/temp/appdirectory/documents</param-value>
   </context-param>
   
+  <persistence-unit-ref>
+        <persistence-unit-ref-name>persistence/jee-dst-ter</persistence-unit-ref-name>
+        <persistence-unit-name>jee-dst-ter</persistence-unit-name>
+  </persistence-unit-ref>
 </web-app>

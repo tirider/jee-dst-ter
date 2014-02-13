@@ -4,7 +4,7 @@
 <!DOCTYPE html><!-- #84BD32 green -->
 <html lang="en"> 
 	<head>
-		<title>My Documents - Document Recommenation Tool</title>  
+		<title>My Documents - Document Search Tool</title>  
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="shortcut icon" href="<core:url value="/favicon.ico" />" type="image/x-icon">		
@@ -109,7 +109,7 @@
 												                        <li class="selected"><a>${i}</a></li>
 												                    </core:when>
 												                    <core:otherwise>
-												                        <a href="<core:url value="/DocumentsInboxService?service=ldmt&page=${i}&lang=en" />">${i}</a>
+												                        <a href="<core:url value="/DocumentsInboxService?service=ldmt&page=${i}" />">${i}</a>
 												                    </core:otherwise>
 												                </core:choose>
 												            </core:forEach>												

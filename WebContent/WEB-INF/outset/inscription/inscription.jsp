@@ -36,7 +36,6 @@
 						<span style="color: red;display: block;">${form.errors['password']}</span>
 						<span style="color: red;display: block;">${form.errors['passwordconfirmation']}</span>
 						<span style="color: red;display: block;">${form.errors['email']}</span>
-						<span style="color: red;display: block;">${form.errors['group']}</span>
 					</div>
 					<div id="register-container">
 						<div class="input-prepend input-fullwidth">
