@@ -19,6 +19,8 @@ public abstract class AbstractFileUpload
 	private Map<String, String> errors = new HashMap<String, String>();
 
 	// CONSTRUCTEUR
+	public AbstractFileUpload(){}
+	
 	public AbstractFileUpload(String uploaddirectory) 
 	{
 		this.uploadsdirectory = uploaddirectory;

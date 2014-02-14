@@ -1,4 +1,4 @@
-package com.dst.model;
+package com.dst.beans;
 
 import java.io.Serializable;
 import javax.persistence.*;

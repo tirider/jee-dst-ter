@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dst.beans.User;
 import com.dst.dao.ArticleDAO;
 import com.dst.dao.ReferenceDAO;
 import com.dst.filter.BloomFilter;
 import com.dst.indexer.FileSystemIndexer;
-import com.dst.model.User;
 
 /**
  * Servlet implementation class DeleteDocumentController

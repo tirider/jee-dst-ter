@@ -16,19 +16,23 @@ public class Global
 	 */
 	public static void createDirectory(String directoryname)
 	{
-		if(! new File(directoryname).exists())
+		if(directoryname != null)
 		{
-			System.out.println("Creating "+directoryname+" directory...");
-			
-			try
+			if(! new File(directoryname).exists())
 			{
-				new File(directoryname).mkdir();
+				System.out.println("Creating "+directoryname+" directory...");
+				
+				try
+				{
+					new File(directoryname).mkdir();
+				}
+				catch(Exception e)
+				{
+					System.err.println("Error creating the "+directoryname+" folder, check the directoy permissions...");
+				}			
 			}
-			catch(Exception e)
-			{
-				System.err.println("Error creating the "+directoryname+" folder, check the directoy permissions...");
-			}			
 		}
+		else System.err.println("Directory name does not exists...");
 	}	
 	
 	/**

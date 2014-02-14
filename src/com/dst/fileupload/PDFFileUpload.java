@@ -13,7 +13,10 @@ import com.dst.global.Global;
 
 public class PDFFileUpload extends AbstractFileUpload
 {	
+	
 	// CONSTRUCTEUR
+	public PDFFileUpload(){super();} 
+	
 	public PDFFileUpload(String uploaddirectory) 
 	{	
 		super(uploaddirectory);
@@ -75,6 +78,8 @@ public class PDFFileUpload extends AbstractFileUpload
 		}
 		else
 		{
+			System.err.println("No good file to upload...");
+			
 			// REPPORTING ERROR
 			this.setErrors("signature", "Your file is unreadable. Please try a pdf file");
 		}

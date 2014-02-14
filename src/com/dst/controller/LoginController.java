@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dst.beans.User;
 import com.dst.dao.ReferenceDAO;
 import com.dst.dao.UserDAO;
 import com.dst.filter.BloomFilter;
 import com.dst.form.LoginForm;
-import com.dst.model.User;
 
 /**
  * Servlet implementation class LoginController

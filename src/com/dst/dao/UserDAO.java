@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext; 
 import javax.persistence.Query;
 
-import com.dst.model.User;
+import com.dst.beans.User;
 
 /**
  * Session Bean implementation class UserBean

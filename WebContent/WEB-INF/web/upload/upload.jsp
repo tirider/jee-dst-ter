@@ -53,8 +53,8 @@
 							<h3>CHOOSE YOUR ARTICLE</h3>
 							
 							<div id="div_container_titlex">
-								<form action="<core:url value="/UploadAction" />" enctype="multipart/form-data" method="post">
-									<input type="file" name="afile" class="btn" size="25" style="height: 25px;"/> <br/><br/>
+								<form action="/jee-dst-ter/app/uploadservice/uploadaction" enctype="multipart/form-data" method="post">
+									<input type="file" name="file" class="btn" size="25" style="height: 25px;"/> <br/><br/>
 									<input type="submit" name="submit" class="btn" value="Analyze Document" style="height: 30px;"/>
 								</form>
 								<span style="color: red;font-size: 12px;">${file.errors['size']}</span>

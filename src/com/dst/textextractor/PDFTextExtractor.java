@@ -6,21 +6,19 @@ import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 
-public class PDFArticleTextExtractor  implements InterfaceArticleTextExtractor
+public class PDFTextExtractor  implements ITextExtractor
 {	
 	private String title;
 	private String summary;
 
-	//###########################################################################################	
 	// DOCUMENT LOADER OBJECT
 	protected PDDocument doc;
 
-	//###########################################################################################		
 	// DOCUMENTS EXTRACTOR OBJECT
 	protected PDFTextStripper extractor;
 	
 	/** CONSTRUCTEUR **/
-	public PDFArticleTextExtractor(File pdffile)
+	public PDFTextExtractor(File pdffile)
 	{	
 		this.title   = new String();
 		this.summary = new String();
@@ -41,7 +39,7 @@ public class PDFArticleTextExtractor  implements InterfaceArticleTextExtractor
 		catch(IOException e)
 		{
 			// REPPORTING ERROR ON SERVER
-			System.out.println("Le fichier n'existe pas ! \n"+e.getMessage());
+			System.err.println("File does not exists! \n"+e.getMessage());
 		}
 	}
 
@@ -87,15 +85,12 @@ public class PDFArticleTextExtractor  implements InterfaceArticleTextExtractor
 	}
 	
 	
-	//###########################################################################################
 	@Override
 	public String getTitle() throws Exception { return this.title; }
 	
-	//###########################################################################################
 	@Override
 	public String getSummary() throws Exception { return this.summary; }
 	
-	//###########################################################################################
 	@Override
 	public String getText() throws Exception { return this.title+"\n"+this.summary; }
 

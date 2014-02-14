@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dst.beans.IndexedLuceneDocument;
+import com.dst.beans.User;
 import com.dst.filter.BloomFilter;
 import com.dst.global.Global;
-import com.dst.model.User;
 import com.dst.searcher.FileSystemSearcher;
 
 /**

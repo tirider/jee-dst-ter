@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
   
+import com.dst.beans.User;
 import com.dst.dao.UserDAO;
 import com.dst.form.InscriptionForm;
-import com.dst.model.User;
 
 /**
  * Servlet implementation class FileUploadController

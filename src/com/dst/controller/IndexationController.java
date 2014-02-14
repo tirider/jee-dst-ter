@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dst.beans.Article;
 import com.dst.beans.LuceneDocument;
+import com.dst.beans.Reference;
+import com.dst.beans.User;
 import com.dst.dao.ArticleDAO;
 import com.dst.dao.ReferenceDAO;
 import com.dst.filter.BloomFilter;
 import com.dst.global.Global;
 import com.dst.indexer.FileSystemIndexer;
-import com.dst.model.Article;
-import com.dst.model.Reference;
-import com.dst.model.User;
-import com.dst.textextractor.InterfaceArticleTextExtractor;
-import com.dst.textextractor.PDFArticleTextExtractor;
+import com.dst.textextractor.ITextExtractor;
+import com.dst.textextractor.PDFTextExtractor;
 
 /**
  * Servlet implementation class IndexationController
@@ -31,7 +31,7 @@ import com.dst.textextractor.PDFArticleTextExtractor;
 public class IndexationController extends HttpServlet
 {
 	// ATTRIBUTES DE LA REQUETE
-	private static final String  ATTR_UPLOADS_DIRECTORY   = "uploads-directory";
+	private static final String  ATTR_UPLOADS_DIRECTORY   = "temps-directory";
 	private static final String  ATTR_DOCUMENTS_DIRECTORY = "documents-directory";
 	private static final String  ATTR_INDEX_DIRECTORY     = "index-directory";
 	private static final String  ATTR_SESSION             = "session";
@@ -141,7 +141,7 @@ public class IndexationController extends HttpServlet
 				else
 				{
 					// INDEXATION
-					InterfaceArticleTextExtractor textextractor = new PDFArticleTextExtractor(tempfilepathname);
+					ITextExtractor textextractor = new PDFTextExtractor(tempfilepathname);
 					LuceneDocument luceneDocument = new LuceneDocument();
 					
 					try 

@@ -20,7 +20,7 @@ import org.apache.lucene.util.Version;
 
 import com.dst.beans.IndexedLuceneDocument;
 import com.dst.filter.BloomFilter;
-import com.dst.textextractor.PDFArticleTextExtractor;
+import com.dst.textextractor.PDFTextExtractor;
 
 /**  **/
 public class FileSystemSearcher 
@@ -118,7 +118,7 @@ public class FileSystemSearcher
 			    	indexedLuceneDocument.setId(document.get(IndexedLuceneDocument.ID));
 			    	indexedLuceneDocument.setFormat(document.get(IndexedLuceneDocument.FORMAT));
 			    	indexedLuceneDocument.setTitle(document.get(IndexedLuceneDocument.TITLE));
-			    	String contentpattern = PDFArticleTextExtractor.extractPatternContent(document.get(IndexedLuceneDocument.CONTENT), queryString);
+			    	String contentpattern = PDFTextExtractor.extractPatternContent(document.get(IndexedLuceneDocument.CONTENT), queryString);
 			    	indexedLuceneDocument.setContent(contentpattern);
 			    	indexedLuceneDocument.setUrl(document.get(IndexedLuceneDocument.URL));
 			    	indexedLuceneDocument.setScore(articleScore);

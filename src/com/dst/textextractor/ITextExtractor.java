@@ -1,6 +1,6 @@
 package com.dst.textextractor;
 
-public interface InterfaceArticleTextExtractor 
+public interface ITextExtractor 
 {
 	// METHODE QUI EXECUTE LA EXT*RACTION DU TEXT DEPUIS UN FICHIER TEXT
 	public void extract() throws Exception;

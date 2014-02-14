@@ -12,7 +12,13 @@ public final class InscriptionForm extends AbstractForm
 	// CONTROL DE RESULUT
 	private String result = new String();
 	
-	// CONSTRUCTOR
+	/**
+	 * Constructor with params.
+	 * @param username
+	 * @param password
+	 * @param passwordconfirmation
+	 * @param email
+	 */
 	public InscriptionForm(String username, String password, 
 		   String passwordconfirmation, String email)
 	{
@@ -22,12 +28,10 @@ public final class InscriptionForm extends AbstractForm
 		this.email = email;
 	}
 	
-	// FONCTION DE CONNEXION POUR UN UTILISATEUR	
 	public void validate() 
 	{
 		try
 		{
-			// MANIPULER LES CHAMPS
 			this.validateUserName(username);
 			this.validatePasswords(password, passwordConfirmation);
 			this.validateEmail(email);

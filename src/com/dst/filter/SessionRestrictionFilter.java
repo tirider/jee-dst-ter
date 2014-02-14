@@ -24,7 +24,7 @@ public class SessionRestrictionFilter implements Filter
 	@Override
 	public void init(FilterConfig arg0) throws ServletException 
 	{
-		// DO SOMETHING
+		System.out.println("init session...");
 	}
 	
 	@Override
@@ -50,6 +50,6 @@ public class SessionRestrictionFilter implements Filter
 	@Override
 	public void destroy() 
 	{
-		// FAIRE QQCH SI BESOIN
+		System.out.println("destroy session...");
 	}
 }
