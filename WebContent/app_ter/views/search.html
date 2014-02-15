@@ -1,0 +1,55 @@
+	<div id="container" >
+			<div id="header">
+				<div ng-include="'views/header.html'"/>
+			</div>
+			<div id="body">
+				<div class="site-wrapper">
+					<div class="site-body">		
+						<div class="row-fluid pe-block">
+							<div class="page-title">
+								<div class="pe-container">
+									<h1>Search Engine</h1>
+								</div>
+							</div> 
+							<br/><br/>
+							<div class="pe-container">
+								<div >
+									<p>
+									<span class="accent">Searching</span> allows you to <span class="accent">view</span> and <span class="accent">download</span> a set of documents coming from users
+									sharing a profile like yours.
+									<span class="accent">No more wondering about effective or successful searching terms, the program does it for you"</span>.
+									<br/><b>Do not distress if you do not find any useful results. A reason  
+									could be, that no any other profile shares the information to answer your question at the moment</b>.
+									</p>
+								</div>				
+							    <div style="margin: auto;width:34%;text-align:left">
+									<form action="/ResearchService" method="post" >
+										<div class="input-append" >
+											<input id="text" name="text" value="${text}" class="" placeholder="Type your search here" type="search">
+											<button class="btn" type="submit">Search</button>
+										</div> 
+									</form>				    
+							    </div>
+								<p align="center" style="margin-bottom: 10px;"><span>${message}</span></p>
+								<div>
+									<core:forEach var="document" items="${documents}">
+										<div align="left">
+											<p style="color: #000;">
+												<span style="font-size: 11px;color: #777;">[${document.format}]</span>
+												<a target="blank" href="<core:url value="/FileViewerService?service=viewf&dc=${document.id}&lang=en" />"><span style="text-decoration: underline;">${document.title}</span></a><br/>
+												<span style="color:#777777"><strong>${document.url}</strong></span><br/>
+												<span style="color: black;">${document.content}...</span>
+											</p>
+										</div>
+									</core:forEach>					
+								</div>
+							</div>							
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="startupfooter">
+				<div ng-include ="'views/footer.html'" />
+			</div>	
+		</div>
