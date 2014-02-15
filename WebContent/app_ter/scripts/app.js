@@ -37,7 +37,7 @@
 		var listeNavigation=Navigation;
 		_.each(listeNavigation, function(navigation){
 			$routeProvider.when(''+navigation.when, {templateUrl:navigation.templateUrl, controller:navigation.controller, view:navigation.view});
-			$routeProvider.otherwise({redirectTo:'/login'});
+			$routeProvider.otherwise({redirectTo:'/welcome'});
 		});
 	}]);
 })();

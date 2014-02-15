@@ -4,7 +4,9 @@
 		</div>
 		
 		<div id="body" class="acenter" style="padding:10px 20% 10px 20%">
-			<form method="post" action="/loginService" class="form-register testimonial" style="border-width: 1px; padding:50px 200px">
+		
+			<form class="form-register testimonial css-form" 
+			style="border-width: 1px; padding:50px 200px">
 			<div class="acenter">
 				<img src="img/logo_um2.png" style="width:250px; margin:0 auto">
 			</div>
@@ -20,27 +22,27 @@
 				</div> -->
 				<div class="input-prepend input-fullwidth">
 					<div class="input-wrapper">
-						<input id="email" name="email" class="input-block-level" placeholder="Email" type="email" ng-model="email">
+						<input id="email" name="email" class="input-block-level" placeholder="Email" type="email" ng-model="email" required>
 					</div>
 				</div>
 				<div class="input-prepend input-fullwidth">
 					<div class="input-wrapper">
-						<input id="password" name="password" class="input-block-level" placeholder="Password" type="password">
+						<input id="password" name="password" class="input-block-level" placeholder="Password" type="password" ng-model="password" required>
 					</div>
 				</div>
 				<div class="form-actions">
 					<div class="row-fluid" style="margin-bottom: 5px;">
-						<button class="contour-btn red col-sm-12" type="submit">Log In</button>
+						<button class="contour-btn red col-sm-12" style="height:40px" type="submit" ng-click="submit()">Log In</button>
 					</div>
 				</div>
 				<hr size="1" />
 				<div class="forget-password" style="text-align: center;">
 					<strong class="text-center">Forgot password ? </strong>
-					<a href="#" id="link-forgot">Click here to reset</a>
+					<a style="color:grey" id="link-forgot">Click here to reset</a>
 				</div>
 				<div class="row-fluid" style="text-align: center;">
 					<strong class="text-center">You do not have an account ? </strong>
-					<a href="#" id="link-forgot">Register</a>
+					<a href="#/inscription" id="link-forgot">Register</a>
 				</div>
 			</form>
 		</div>

@@ -4,6 +4,8 @@
 
 	module.controller('WelcomeCtrl', ['$scope', '$location',
 	                                  function($scope, $location){
+		
+		
 
 	}]);
 })();

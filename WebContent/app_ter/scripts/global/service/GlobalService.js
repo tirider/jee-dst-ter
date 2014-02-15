@@ -39,9 +39,9 @@
 				 templateUrl:"views/login.html", 
 				 controller:"LoginCtrl"
 			 },
-			 {  when:"/mydocuments", 
-				 templateUrl:"views/mydocuments.html", 
-				 controller:"MydocumentsCtrl"
+			 {  when:"/mydocument", 
+				 templateUrl:"views/mydocument.html", 
+				 controller:"MydocumentCtrl"
 			 },
 			 {  when:"/reset", 
 				 templateUrl:"views/resetPassword.html", 

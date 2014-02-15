@@ -14,7 +14,7 @@
 	}
 </style>
 <!-- start sticky bar-->
-<div lang="en" class="sticky-bar"> 
+<div lang="en" class="sticky-bar" ng-controller="HeaderCtrl"> 
 	
 	<!-- start info bar -->
 	<div class="info-bar"> 
@@ -23,13 +23,13 @@
 				<div class="span5 tagline">You are connected as <span id="welcomeuser">
 				<!-- <span class="accent">${empty session.username ? 'null' : session.username}</span>
 				</span> ! -->
-				 <span class="accent">{{session.username}}</span>
+				 <span class="accent">{{$user_info.name}}</span>
 				</div>
 				<div class="span7">
 					<div>
 						<div class="email"><i class="icon-pencil"></i><a href="mailto:admin@localhost">Email Us</a></div>
-						<div  ng-disabled="true" class="email"><span class="accent">* </span><a href="/ChangePasswordService">Security</a></div>
-						<div  ng-disabled="true" class="phone"><span class="accent">* </span><a href="/LogoutAction">Sign Out</a></div>
+						<div class="email"><span class="accent">* </span><a href="#/security">Security</a></div>
+						<div class="phone"><span class="accent">* </span><a href="" ng-click="signOut()">Sign Out</a></div>
 					</div>
 				</div>
 			</div>
@@ -41,36 +41,34 @@
 	<div class="menu-bar"> 
 		<div class="pe-container"> 
 			<header class="row-fluid">
-				
 				<!-- LOGO -->
 				<div class="logo span4">
 					<div class="logoimage">
 						<img src="img/logo.jpeg" width="60" height="60">
 					</div>
 					<div class="logotext">
-						<a href="/WelcomeService"> Document Search Tool</a>
+						<a href="#/welcome"> Document Search Tool</a>
 					</div>
 				</div>
-				
 				<div class="menu-wrap span8">
 					<!--main menu-->
 					<div class="mainNav clearfix">
 						<!--main nav-->
 						<ul class="nav" id="navigation">
 							<li class="menu-item dropdown ">
-								<a href="/WelcomeService">HOME<span class="subtitle"><span class="accent">Start Page</span></span></a>
+								<a href="#/welcome">HOME<span class="subtitle"><span class="accent">Start Page</span></span></a>
 								<ul class="dropdown-menu"></ul>
 							</li>
 							<li class="menu-item dropdown ">
-								<a href="ResearchService">SEARCH<span class="subtitle"><span class="accent">Search Engine</span></span></a>
+								<a href="#/search">SEARCH<span class="subtitle"><span class="accent">Search Engine</span></span></a>
 								<ul class="dropdown-menu"></ul>
 							</li>
 							<li class="menu-item dropdown ">
-								<a href="IndexationService">UPLOAD<span class="subtitle"><span class="accent">Profile Setup</span></span></a>
+								<a href="#/indexation">UPLOAD<span class="subtitle"><span class="accent">Profile Setup</span></span></a>
 								<ul class="dropdown-menu"></ul>
 							</li>
 							<li class="menu-item dropdown ">
-								<a href="DocumentsInboxService">MY DOCUMENTS<span class="subtitle"><span class="accent">My Identification Profile</span></span></a>
+								<a href="#/mydocument">MY DOCUMENTS<span class="subtitle"><span class="accent">My Identification Profile</span></span></a>
 								<ul class="dropdown-menu"></ul>
 							</li>
 						</ul>
@@ -80,6 +78,5 @@
 		</div><!--fin container-->	
 	</div> 
 	<!--end top bar-->
-	
 </div>
 <!--end sticky bar-->
