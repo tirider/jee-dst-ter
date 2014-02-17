@@ -45,7 +45,7 @@
 	.info-bar .email [class^="icon-"], 
 	.info-bar .phone [class^="icon-"],
 	.subtitle a {
-		color:#84bd32;
+		color:#326ABD;
 	}
 
 
@@ -72,7 +72,7 @@
 	.peSlider > div.peCaption > .pe-caption-background,
 	.process > div > div > div > div:hover .read-more,
 	.ie8 .over-effect:hover > .cell-title{
-		background-color:#84bd32;
+		background-color:#326ABD;
 	}
 
 
@@ -103,19 +103,19 @@
 	.process > div > div > div > div:hover .read-more,
 	.featured-project,
 	.dropdown-menu{
-		border-color:#84bd32;
+		border-color:#326ABD;
 	}
 
 	.footer{
-		border-top-color:#84bd32;
+		border-top-color:#326ABD;
 	}
 
 	.widget_menu li.active a{
-		background-color:#84bd32; !important
+		background-color:#326ABD; !important
 	}
 
 	.col.high{
-		outline-color:#84bd32;
+		outline-color:#326ABD;
 	}
 
 
