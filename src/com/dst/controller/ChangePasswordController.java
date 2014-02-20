@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
   
-import com.dst.beans.User;
-import com.dst.dao.UserDAO;
-import com.dst.form.ChangePasswordForm;
+import com.dst.model.beans.User;
+import com.dst.model.dao.UserDAO;
+import com.dst.model.form.ChangePasswordForm;
 
 /**
  * Servlet implementation class ChangePasswordController
@@ -20,21 +20,8 @@ import com.dst.form.ChangePasswordForm;
 @WebServlet(name="ChangePasswordController", urlPatterns = "/ChangePasswordService") 
 public class ChangePasswordController extends HttpServlet
 {	
-	// ATTRIBUTES DE LA REQUETE
-	private static final String ATTR_FORM 		= "form";
-	private static final String ATTR_MESSAGE 	= "message";
-	private static final String ATTR_SESSION  	= "session";
-	
-	//CHAMPS DU FORMULAIRE
-	private static final String FIELD1 = "currentpassword";
-	private static final String FIELD2 = "newpassword";
-	private static final String FIELD3 = "newpasswordconfirmation";
-	
 	// VUES ASSOCIEE AU CONTROLLEUR
 	private static final String VIEW1 = "/WEB-INF/web/security/passwordUpdate.jsp";
-	
-	// INTERFACE D'ACCES AUX DONNEES
-	private String message = new String();
 	
 	// DEFAULT SERIAL VERSION
 	private static final long serialVersionUID = 1L;
@@ -60,17 +47,18 @@ public class ChangePasswordController extends HttpServlet
 	{
 		// RECUPERATION DE L'IDENTIFIENT DE LA SESSION
 		HttpSession session = request.getSession();
-		User user  = (User) session.getAttribute(ATTR_SESSION);
+		User user  = (User) session.getAttribute("session");
 		
 		// RECUPERATION DES CHAPMS (PARAMETRES)  DU FORMAULAIRE
-		String currentPassword    = request.getParameter(FIELD1);
-		String newPassword        = request.getParameter(FIELD2);
-		String newPasswordConfirm = request.getParameter(FIELD3);
+		String currentPassword    = request.getParameter("currentpassword");
+		String newPassword        = request.getParameter("newpassword");
+		String newPasswordConfirm = request.getParameter("newpasswordconfirmation");
 		
 		// OBJET METIER
 		ChangePasswordForm form = new ChangePasswordForm();
 		form.validate(currentPassword, newPassword, newPasswordConfirm);
 		
+		String message = new String();
 		if(form.getErrors().isEmpty())
 		{
 			if(userDAO.updatePasswordByEmail(user.getEmail(), newPassword))
@@ -84,8 +72,8 @@ public class ChangePasswordController extends HttpServlet
 		}
 		
 		// TRANSFERE VERS LA REQUETE
-		request.setAttribute(ATTR_FORM, form);
-		request.setAttribute(ATTR_MESSAGE, message);
+		request.setAttribute("form", form);
+		request.setAttribute("message", message);
 		
 		// REDIRECTION VERS LA VUE CORRESPONDANTE
 		this.getServletContext().getRequestDispatcher(VIEW1).forward(request, response);

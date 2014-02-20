@@ -28,8 +28,8 @@
 			</div>
 			<div id="body">
 				<form method="post" action="<core:url value="/LoginService" />" class="form-register testimonial" style="border-width: 1px">
-					<h2 class="form-heading" style="color: #666666;"><strong>Authentification</strong></h2>
-					<p align="center">Type your email and password below</p>
+					<h2 class="form-heading" style="color: #666666;"><strong>Authentication</strong></h2>
+					<p align="center">Type your email address and password below</p>
 					<div class="${empty form.errors ? 'hide' : 'alert alert-info'}" style="background-color: #F9F9F9;border-color: #AAAAAA;">
 						<span style="color: red;display: block;">${form.errors['auth']}</span>
 						<span style="color: red;display: block;">${form.errors['email']}</span>

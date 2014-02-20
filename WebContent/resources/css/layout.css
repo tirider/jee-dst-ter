@@ -8,10 +8,11 @@ html, body {
 	min-height:100%;
 	position:relative;
 }
-	
+.up-container {
+	padding-top: 7%;
+}
 #header {
-	padding-top:0px;
-	/*background: #84BD32;*/
+	padding-top:0%; 
 }
 	
 #body {

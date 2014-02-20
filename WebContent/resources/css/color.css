@@ -1,8 +1,53 @@
+	.desktop a:hover {
+	    color: rgb(85, 85, 85);
+	    text-decoration: none;
+	    transition: all 0.3s ease-out 0s;
+	}
+	.feature .feature-title {
+		padding-left: 0px;
+	    margin-bottom: 20px;
+	}
+	.feature .feature-title {
+	    padding-left: 0px;
+	    margin-bottom: 20px;
+	}	
+	h3{
+		color: rgb(85, 85, 85);/*rgb(85, 85, 85);*/
+	}
+	div.logotext
+	{
+		padding:0px; margin:0px; dispaly: inline; margin-top:10px; margin-right: 10px;
+		color: rgb(85, 85, 85);
+		font-size: 22px; 
+	}	
+	div.logotext a
+	{
+		/* font-weight:bold; */
+		text-transform:uppercase;
+		color: rgb(85, 85, 85);
+	}
 	
-	/*single main color selectors*/
-   
-   	/*color*/
-
+	div#startuplogoimg img
+	{
+		margin:auto;
+	}
+	
+	div#startuplogotext p
+	{
+		text-align:center; font-size: 25px;
+	}	
+	
+	div#startuplogotext p a
+	{
+		color: #777777;
+	}
+	
+	.bar-text a {
+    color: rgb(204, 204, 204);
+	}
+	.btn-i {
+		background-color: rgb(68, 68, 68);
+	}
 	p.wp-caption-text,
 	.desktop h3 a:hover,
 	.accent,
@@ -45,12 +90,8 @@
 	.info-bar .email [class^="icon-"], 
 	.info-bar .phone [class^="icon-"],
 	.subtitle a {
-		color:#84bd32;
+		color: #999966;/*326ABD;*/
 	}
-
-
-   
-	/*background-color*/
 
 	.desktop a.read-more:hover,
 	.contour-btn.red,
@@ -72,13 +113,8 @@
 	.peSlider > div.peCaption > .pe-caption-background,
 	.process > div > div > div > div:hover .read-more,
 	.ie8 .over-effect:hover > .cell-title{
-		background-color:#84bd32;
+		background-color: #999966;
 	}
-
-
-
-
-	/*border-color*/
 
 	.desktop a.read-more:hover,
 	.contour-btn.red,
@@ -103,7 +139,7 @@
 	.process > div > div > div > div:hover .read-more,
 	.featured-project,
 	.dropdown-menu{
-		border-color:#84bd32;
+		border-color: #999966; 
 	}
 
 	.footer{

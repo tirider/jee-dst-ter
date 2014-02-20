@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
   
-import com.dst.beans.User;
-import com.dst.dao.UserDAO;
-import com.dst.form.InscriptionForm;
+import com.dst.model.beans.User;
+import com.dst.model.dao.UserDAO;
+import com.dst.model.form.InscriptionForm;
 
 /**
  * Servlet implementation class FileUploadController
@@ -20,10 +20,6 @@ import com.dst.form.InscriptionForm;
 @WebServlet(name="InscriptionController", urlPatterns = "/InscriptionService") 
 public class InscriptionController extends HttpServlet
 {	
-	// ATTRIBUTES DE LA REQUETE
-	private static final String ATTR_USER 		= "user";
-	private static final String ATTR_FORM 		= "form";
-	
 	// VUES ASSOCIEE AU CONTROLLEUR
 	private static final String VIEW1 = "/WEB-INF/outset/inscription/inscription.jsp";
 	private static final String VIEW2 = "/WEB-INF/outset/inscription/inscriptionMessage.jsp";
@@ -67,7 +63,7 @@ public class InscriptionController extends HttpServlet
         user.setPassword(password);
         user.setInscriptionDate(inscriptiondate);
         
-		request.setAttribute(ATTR_USER, user);
+		request.setAttribute("user", user);
 		
 		if(form.getErrors().isEmpty())
 		{      
@@ -84,7 +80,7 @@ public class InscriptionController extends HttpServlet
 				
 				form.setErrors("email", "The email addresse exists already.");
 				
-				request.setAttribute(ATTR_FORM, form);
+				request.setAttribute("form", form);
 				
 				// REDIRECTION VERS LA VUE CORRESPONDANTE
 				this.getServletContext().getRequestDispatcher(VIEW1).forward(request, response);
@@ -92,7 +88,7 @@ public class InscriptionController extends HttpServlet
 		}
 		else
 		{
-			request.setAttribute(ATTR_FORM, form);
+			request.setAttribute("form", form);
 			
 			// REDIRECTION VERS LA VUE CORRESPONDANTE
 			this.getServletContext().getRequestDispatcher(VIEW1).forward(request, response);

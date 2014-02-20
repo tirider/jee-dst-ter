@@ -52,7 +52,7 @@ public class FileDownloadController extends HttpServlet
 		try 
 		{ 
 			stream = response.getOutputStream();
-			// set response headers 
+			
 			response.setContentType("application/pdf"); 
 			response.setDateHeader("Expires", 0); 
 			response.addHeader("Content-Disposition", "attachment; filename="+filename);

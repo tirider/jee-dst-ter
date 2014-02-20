@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dst.beans.User;
-import com.dst.dao.ReferenceDAO;
-import com.dst.dao.UserDAO;
-import com.dst.filter.BloomFilter;
-import com.dst.form.LoginForm;
+import com.dst.model.beans.User;
+import com.dst.model.dao.ReferenceDAO;
+import com.dst.model.dao.UserDAO;
+import com.dst.model.filter.BloomFilter;
+import com.dst.model.form.LoginForm;
 
 /**
  * Servlet implementation class LoginController
@@ -23,13 +23,8 @@ import com.dst.form.LoginForm;
 @WebServlet(name="LoginController", urlPatterns = "/LoginService") 
 public class LoginController extends HttpServlet
 {	
-	// ATTRIBUTES DE LA REQUETE
-	private static final String ATTR_FORM    			= "form";
-	private static final String ATTR_SESSION_USER      	= "session";
-	private static final String ATTR_SESSION_USER_DOCS 	= "bloomfilter";
-	
 	// VUES ASSOCIEES AU CONTROLLEUR
-	private static final String VIEW1 = "/WelcomeService";
+	private static final String VIEW1 = "/ResearchService";
 	private static final String VIEW2 = "/WEB-INF/outset/login/login.jsp";
 	
 	// DEFAULT SERIAL VERSION
@@ -83,8 +78,8 @@ public class LoginController extends HttpServlet
 				BloomFilter bloomfilter = new BloomFilter(resultSet);
 				
 				// CREATION DE LA SESSION
-				session.setAttribute(ATTR_SESSION_USER, user);	
-				session.setAttribute(ATTR_SESSION_USER_DOCS, bloomfilter);	
+				session.setAttribute("session", user);	
+				session.setAttribute("bloomfilter", bloomfilter);	
 				
 				// REDIRECTION SANS ERREURS
 				response.sendRedirect(response.encodeURL(request.getContextPath()+VIEW1));				
@@ -92,11 +87,11 @@ public class LoginController extends HttpServlet
 			else 
 			{ 
 				// UNABLE TO CREATE A SESSION
-				session.setAttribute(ATTR_SESSION_USER, null);
+				session.setAttribute("session", null);
 				
 				// REGISTER FORM
 				form.setErrors("auth", "Authentication unsuccessful."); 
-				request.setAttribute(ATTR_FORM, form);
+				request.setAttribute("form", form);
 				
 				// REQUEST THE VIEW
 				this.getServletContext().getRequestDispatcher(VIEW2).forward(request, response);
@@ -105,10 +100,10 @@ public class LoginController extends HttpServlet
 		else
 		{	
 			// UNABLE TO CREATE A SESSION
-			session.setAttribute(ATTR_SESSION_USER, null);
+			session.setAttribute("session", null);
 			
 			// REGISTER FORM
-			request.setAttribute(ATTR_FORM, form);
+			request.setAttribute("form", form);
 			
 			// REQUEST THE VIEW
 			this.getServletContext().getRequestDispatcher(VIEW2).forward(request, response);

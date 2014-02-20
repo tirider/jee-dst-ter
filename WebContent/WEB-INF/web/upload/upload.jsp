@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="<core:url value="/resources/css/layout.css" />" type="text/css" >
 		
 		<script type="text/javascript" src="<core:url value="/resources/js/jquery-1.js" />"></script>
+<%-- 		<script type="text/javascript" src="<core:url value="/resources/js/javascript.js" />"></script> --%>
 	</head>
 	<body> 
 		<div id="container" >
@@ -53,8 +54,8 @@
 							<h3>CHOOSE YOUR ARTICLE</h3>
 							
 							<div id="div_container_titlex">
-								<form action="/jee-dst-ter/app/uploadservice/uploadaction" enctype="multipart/form-data" method="post">
-									<input type="file" name="file" class="btn" size="25" style="height: 25px;"/> <br/><br/>
+								<form id="form-upload-file" action="/jee-dst-ter/app/uploadservice/uploadaction" enctype="multipart/form-data" method="post">
+									<input type="file" id="file" name="file" class="btn" size="25" style="height: 25px;"/> <br/><br/>
 									<input type="submit" name="submit" class="btn" value="Analyze Document" style="height: 30px;"/>
 								</form>
 								<span style="color: red;font-size: 12px;">${file.errors['size']}</span>

@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dst.beans.Article;
-import com.dst.beans.LuceneDocument;
-import com.dst.beans.Reference;
-import com.dst.beans.User;
-import com.dst.dao.ArticleDAO;
-import com.dst.dao.ReferenceDAO;
-import com.dst.filter.BloomFilter;
-import com.dst.global.Global;
-import com.dst.indexer.FileSystemIndexer;
-import com.dst.textextractor.ITextExtractor;
-import com.dst.textextractor.PDFTextExtractor;
+import com.dst.model.beans.Article;
+import com.dst.model.beans.LuceneDocument;
+import com.dst.model.beans.Reference;
+import com.dst.model.beans.User;
+import com.dst.model.dao.ArticleDAO;
+import com.dst.model.dao.ReferenceDAO;
+import com.dst.model.filter.BloomFilter;
+import com.dst.model.indexer.FileSystemIndexer;
+import com.dst.model.text.ITextExtractor;
+import com.dst.model.text.PDFTextExtractor;
+import com.dst.model.util.Global;
 
 /**
  * Servlet implementation class IndexationController

@@ -13,22 +13,9 @@
 <!-- Add Fancybox functinos-->
 <script type="text/javascript" src="<core:url value="/resources/themes/fancybox/fancybox.functions.js" />"></script>
 
-<%--class="fancybox fancybox.iframe" --%>
-<style>
-	div.logoimage
-	{
-		width: 60px; display: inline;float: left;	
-	}
-	div.logotext
-	{
-		width: 220px; padding:0px; margin:0px; dispaly: inline; float: right; margin-top:10px; margin-right: 10px;
-		font-size: 20px; 
-	}	
-	div.logotext a
-	{
-		color: #777777;	
-	}
-</style>
+<!-- Add main script -->
+<script type="text/javascript" src="<core:url value="/resources/js/javascript.js" />"></script>
+
 <!-- start sticky bar-->
 <div lang="en" class="sticky-bar"> 
 	
@@ -36,12 +23,12 @@
 	<div class="info-bar"> 
 		<div class="pe-container"> 
 			<div class="row-fluid">
-				<div class="span5 tagline">You are connected as <span id="welcomeuser"><span class="accent">${empty session.username ? 'null' : session.username}</span></span> !</div>
+				<div class="span5 tagline bar-text">You are connected as <span id="welcomeuser"><span class="accent">${empty session.username ? 'null' : session.username}</span></span> !</div>
 				<div class="span7">
 					<div>
-						<div class="email"><i class="icon-pencil"></i><a href="mailto:admin@localhost">Email Us</a></div>
-						<div class="email"><span class="accent">* </span><a href="<core:url value="/ChangePasswordService"/>" >Security</a></div>
-						<div class="phone"><span class="accent">* </span><a href="<core:url value="/LogoutAction"/>" >Sign Out</a></div>
+						<div class="bar-text"><a href="mailto:admin@localhost">Email Us</a></div>
+						<div class="bar-text"><a href="<core:url value="/ChangePasswordService"/>" >Security</a></div>
+						<div class="bar-text"><a href="<core:url value="/LogoutAction"/>" >Sign Out</a></div>
 					</div>
 				</div>
 			</div>
@@ -56,11 +43,8 @@
 				
 				<!-- LOGO -->
 				<div class="logo span4">
-					<div class="logoimage">
-						<img src="<core:url value="/resources/img/logo.jpeg"/>" width="60" height="60">
-					</div>
 					<div class="logotext">
-						<a href="<core:url value="/WelcomeService"/>">Document Search Tool</a>
+						<a href="<core:url value="/WelcomeService"/>" >Document Search Tool</a> 
 					</div>
 				</div>
 				
@@ -69,10 +53,10 @@
 					<div class="mainNav clearfix">
 						<!--main nav-->
 						<ul class="nav" id="navigation">
-							<li class="menu-item dropdown ">
+<%-- 							<li class="menu-item dropdown ">
 								<a href="<core:url value="/WelcomeService"/>">HOME<span class="subtitle"><span class="accent">Start Page</span></span></a>
 								<ul class="dropdown-menu"></ul>
-							</li>
+							</li> --%>
 							<li class="menu-item dropdown ">
 								<a href="<core:url value="/ResearchService"/>">SEARCH<span class="subtitle"><span class="accent">Search Engine</span></span></a>
 								<ul class="dropdown-menu"></ul>

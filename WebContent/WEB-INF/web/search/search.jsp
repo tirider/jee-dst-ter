@@ -42,8 +42,9 @@
 									<span class="accent">Searching</span> allows you to <span class="accent">view</span> and <span class="accent">download</span> a set of documents coming from users
 									sharing a profile like yours.
 									<span class="accent">No more wondering about effective or successful searching terms, the program does it for you"</span>.
-									<br/><b>Do not distress if you do not find any useful results. A reason  
-									could be, that no any other profile shares the information to answer your question at the moment</b>.
+									<br/>
+									Do not distress if you do not find any useful results. A reason  
+									could be, that no any other profile shares the information to answer your question at the moment.
 									</p>
 								</div>				
 							    <div style="margin: auto;width:34%;text-align:left">

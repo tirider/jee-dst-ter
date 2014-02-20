@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dst.beans.IndexedLuceneDocument;
-import com.dst.beans.User;
-import com.dst.filter.BloomFilter;
-import com.dst.global.Global;
-import com.dst.searcher.FileSystemSearcher;
+import com.dst.model.beans.IndexedLuceneDocument;
+import com.dst.model.beans.User;
+import com.dst.model.filter.BloomFilter;
+import com.dst.model.searcher.FileSystemSearcher;
+import com.dst.model.util.Global;
 
 /**
  * Servlet implementation class ResearchController
@@ -22,14 +22,6 @@ import com.dst.searcher.FileSystemSearcher;
 @WebServlet(name="/ResearchController", urlPatterns="/ResearchService")
 public class ResearchController extends HttpServlet 
 {	
-	// ATTRIBUTES DE LA REQUETE
-	private static final String ATTR_INDEX_DIRECTORY 	= "index-directory";
-	private static final String ATTR_DOCUMENTS       	= "documents";
-	private static final String ATTR_MESSAGE         	= "message";
-	private static final String ATTR_SEARCHED_TEXT   	= "text";
-	private static final String ATTR_SESSION  			= "session";	
-	private static final String ATTR_SESSION_USER_DOCS 	= "bloomfilter";	
-	
 	/**
 	 * VUES ASSOCIEES AU CONTROLLEUR.
 	 */
@@ -52,7 +44,7 @@ public class ResearchController extends HttpServlet
 	public void init() throws ServletException
 	{
 		// RECUPERATION DU SHEMA DU REPERTOIRE
-		INDEX_DIRECTORY = this.getServletContext().getInitParameter(ATTR_INDEX_DIRECTORY);	
+		INDEX_DIRECTORY = this.getServletContext().getInitParameter("index-directory");	
 		
 		// VERIFIER L EXISTENCE DU REPERTOIRE
 		Global.createDirectory(INDEX_DIRECTORY);
@@ -65,7 +57,7 @@ public class ResearchController extends HttpServlet
 	{
 		// RECUPERATION DE L'IDENTIFIENT DE LA SESSION
 		HttpSession session = request.getSession();
-		User user  = (User) session.getAttribute(ATTR_SESSION);
+		User user  = (User) session.getAttribute("session");
 		
 		if(user != null)
 		{
@@ -87,10 +79,10 @@ public class ResearchController extends HttpServlet
 		HttpSession session = request.getSession();
 		
 		// GET BLOMFILTER DATA
-		BloomFilter bloomfilter = (BloomFilter) session.getAttribute(ATTR_SESSION_USER_DOCS);
+		BloomFilter bloomfilter = (BloomFilter) session.getAttribute("bloomfilter");
 		
 		// GETTING REQUESTED TEXT
-		String query 	= request.getParameter(ATTR_SEARCHED_TEXT);
+		String query 	= request.getParameter("text");
 		String message 	= new String();
 		
 		if(!query.trim().isEmpty())
@@ -127,9 +119,9 @@ public class ResearchController extends HttpServlet
 				message = String.format("About %s result(s) found(s) in (%.2f seconds).", resultsize, executiontime);
 			}
 			
-			request.setAttribute(ATTR_SEARCHED_TEXT, query);
-			request.setAttribute(ATTR_DOCUMENTS, documents);
-			request.setAttribute(ATTR_MESSAGE, message);
+			request.setAttribute("text", query);
+			request.setAttribute("documents", documents);
+			request.setAttribute("message", message);
 		}
 		
 		// REDIRECTION VERS LA VUE CORRESPONDANTE
