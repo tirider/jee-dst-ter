@@ -17,7 +17,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.dst.model.beans.User;
+import com.dst.model.entitybeans.User;
 import com.dst.model.fileupload.AbstractFileUpload;
 import com.dst.model.fileupload.PDFFileUpload;
 import com.dst.model.util.Global;

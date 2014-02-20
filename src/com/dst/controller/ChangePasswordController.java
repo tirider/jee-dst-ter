@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
   
-import com.dst.model.beans.User;
 import com.dst.model.dao.UserDAO;
+import com.dst.model.entitybeans.User;
 import com.dst.model.form.ChangePasswordForm;
 
 /**

@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;  
 import javax.persistence.Query;
 
-import com.dst.model.beans.Article;
+import com.dst.model.entitybeans.Article;
 
 /**
  * Session Bean implementation class ArticleBean

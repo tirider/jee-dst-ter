@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dst.model.beans.Reference;
-import com.dst.model.beans.User;
 import com.dst.model.dao.ReferenceDAO;
 import com.dst.model.dao.UserDAO;
+import com.dst.model.entitybeans.Reference;
+import com.dst.model.entitybeans.User;
 import com.dst.model.filter.BloomFilter;
 
 /**

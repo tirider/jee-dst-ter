@@ -16,7 +16,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
-import com.dst.model.beans.LuceneDocument;
+import com.dst.model.javabeans.LuceneDocument;
 
 public class FileSystemIndexer 
 {

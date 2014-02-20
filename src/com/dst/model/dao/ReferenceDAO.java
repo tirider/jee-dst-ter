@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext; 
 import javax.persistence.Query;
 
-import com.dst.model.beans.Reference;
+import com.dst.model.entitybeans.Reference;
 
 /**
  * Session Bean implementation class ReferenceBean

@@ -18,8 +18,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
-import com.dst.model.beans.IndexedLuceneDocument;
 import com.dst.model.filter.BloomFilter;
+import com.dst.model.javabeans.IndexedLuceneDocument;
 import com.dst.model.text.PDFTextExtractor;
 
 /**  **/

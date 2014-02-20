@@ -37,13 +37,13 @@
 						<span style="color: red;display: block;">${form.errors['email']}</span>
 						<span style="color: red;display: block;">${form.errors['general']}</span>
 					</div>					
-					<div class="${empty message ? 'hide' : 'alert alert-info'}" style="background-color: #F9F9F9;border-color: #AAAAAA;">
-						<span style="color: red;display: block;">${message}</span>
+					<div class="${empty form.errors['message'] ? 'hide' : 'alert alert-info'}" style="background-color: #F9F9F9;border-color: #AAAAAA;">
+						<span style="color: red;display: block;">${form.errors['message']}</span>
 					</div>		
 					<div class="input-prepend input-fullwidth">
 						<span class="add-on" style="${empty form.errors['email'] ? 'color:black;' : 'color:red;'}">*</span>
 						<div class="input-wrapper">
-							<input type="email" id="email" name="email" placeholder="Email" value="${user.email}" />
+							<input type="email" id="email" name="email" placeholder="Email" value="" />
 						</div>
 					</div>
 					<div class="form-actions">
